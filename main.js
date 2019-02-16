@@ -22,6 +22,65 @@ Call the functions in the following order and check the results:
 6. moveBackward 5
 7. printLocation … should print -3
 Wrap the whole program in an IIFE.
+(function () {
+    statements
+})();
+*/
+(function () {
+    let position = 0; // # of steps, 0 beings starting point, -# = steps back (left of 0), +# = steps forward (right of 0)
+    let direction = "forward"; // forward or backward, assuming default is forward
+
+function moveForward(distance){
+    if (direction==="forward") {
+        position += distance;
+    }
+    else if (direction==="backward") {
+        position -= distance;
+    }
+    return position;
+}
+
+function moveBackward(distance){
+    if (direction === "forward") {
+        position -= distance;
+    }
+    else if (direction === "backward"){
+        position += distance;
+    }
+    return position;
+}
+
+function turnAround(direction){
+    if (direction === "forward") {
+        return direction = "backward";
+        // return direction;
+    }
+    else {
+        return direction = "forward";
+        // return direction;
+    }
+    // else if (direction === "backward") {
+    //     direction = "forward";
+    //     return direction;
+    // }
+}
+
+function printLocation(position){
+    console.log(position);
+}
+
+moveForward(5)
+moveBackward(3)
+printLocation(position) //check: 2, good
+turnAround()
+moveForward(10)
+moveBackward(5)
+printLocation(position) //check: -3, getting 7, meaning the turn around is not working...
+})();
+
+
+
+/*
 Extended Challenge 2 Dimensional:
 A character can move around a map in two dimensions. They start at position 0 North, 0 East,
 facing north and can move in any of the four cardinal directions. They can also change
@@ -48,12 +107,6 @@ Call the functions in the following order and check the results:
 Wrap the whole program in an IIFE.
 */
 
-let position; // # of steps, 0 beings starting point, -# = steps back, +# = steps forward
-let direction; // forward or backward
-function moveForward(){
-
-}
-
-function moveBackward(){
-
-}
+(function () {
+    
+})();
