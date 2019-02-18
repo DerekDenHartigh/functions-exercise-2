@@ -26,6 +26,18 @@ Wrap the whole program in an IIFE.
     statements
 })();
 */
+/*
+Lisa's Notes:
+Lisa Lemons [6:46 PM]
+Ok so for Functions Exercise 2, you're so close!
+So because you're passing distance as a parameter, and not assigning the results of `turnAround()` back to the `distance` defined on Line 6, _that_ `distance` never actually changes. (edited) 
+As a result, every time you check it, it's _always_ `"forward"`
+So if you remove `direction` as a parameter from `turnAround()` and just *remove* your `return` statements, you'll find that it works as expected (edited) 
+(Edits are because I was looking at my code and I have different variable names)
+
+Let me know if that doesn't make sense
+(You do still want to keep the assignments in `turnAround()` you just don't need to `return` them. It will still work if you do, but there's no reason to, so I just wouldn't) 
+*/
 (function () {
     let position = 0; // # of steps, 0 beings starting point, -# = steps back (left of 0), +# = steps forward (right of 0)
     let direction = "forward"; // forward or backward, assuming default is forward
@@ -50,14 +62,12 @@ function moveBackward(distance){
     return position;
 }
 
-function turnAround(direction){
+function turnAround(){
     if (direction === "forward") {
-        return direction = "backward";
-        // return direction;
+        direction = "backward";
     }
     else {
-        return direction = "forward";
-        // return direction;
+        direction = "forward";
     }
     // else if (direction === "backward") {
     //     direction = "forward";
@@ -75,9 +85,8 @@ printLocation(position) //check: 2, good
 turnAround()
 moveForward(10)
 moveBackward(5)
-printLocation(position) //check: -3, getting 7, meaning the turn around is not working...
+printLocation(position) //check: -3, good! huzzah
 })();
-
 
 
 /*
@@ -108,5 +117,74 @@ Wrap the whole program in an IIFE.
 */
 
 (function () {
+        let direction = "North"; // forward or backward, assuming default is forward
+        let distanceN = 0;
+        let distanceE = 0;
     
+    function moveForward(distance){
+        switch(direction){
+            case "North": {distanceN+=distance}; return distanceN;
+            case "East": {distanceE+=distance}; return distanceE;
+            case "South": {distanceN-=distance}; return distanceN;
+            case "West": {distanceE-=distance}; return distanceE;
+        }
+    }
+    
+    function moveBackward(distance){
+        switch(direction){
+            case "North": {distanceN-=distance}; return distanceN;
+            case "East": {distanceE-=distance}; return distanceE;
+            case "South": {distanceN+=distance}; return distanceN;
+            case "West": {distanceE+=distance}; return distanceE;
+        }
+    }
+    
+    function turnAround(){ //  I know this isn't ever used, but I wanted to make it available
+        switch(direction){
+            case "North": direction = "South"; return direction;
+            case "East": direction = "West"; return direction;
+            case "South": direction = "North"; return direction;
+            case "West": direction = "East"; return direction;
+        }
+    }
+    function turnLeft(){
+        switch(direction){
+            case "North": direction = "West"; return direction;
+            case "East": direction = "North"; return direction;
+            case "South": direction = "East"; return direction;
+            case "West": direction = "South"; return direction;
+        }
+    }
+    function turnRight(){
+        switch(direction){
+            case "North": direction = "East"; return direction;
+            case "East": direction = "South"; return direction;
+            case "South": direction = "West"; return direction;
+            case "West": direction = "North"; return direction;
+        }
+    }
+    function printLocation(){
+        console.log(`${distanceN} N, ${distanceE} E`);
+    }
+    function printDirection(){
+        console.log(`You are facing ${direction}`);
+    }
+
+
+moveForward(5)
+turnRight()
+moveForward(2)
+printLocation() // check 5 N, 2 E
+turnLeft()
+turnLeft()
+moveForward(7)
+turnRight()
+moveBackward(3) // check 2 N, -5 E
+printLocation()
+turnAround() // the rest is just for fun
+moveForward(10) 
+printLocation() 
+printDirection() 
+turnAround()
+printDirection()
 })();
